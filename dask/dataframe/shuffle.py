@@ -800,6 +800,7 @@ def collect(p, part, meta, barrier_token):
     """Collect partitions from partd, yield dataframes"""
     with ensure_cleanup_on_exception(p):
         res = p.get(part)
+        res = meta._constructor(res)  # preserve potential subclass
         return res if len(res) > 0 else meta
 
 
